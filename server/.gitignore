@@ -1,0 +1,54 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node modules & dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build & output
+dist/
+build/
+.cache/
+.temp/
+coverage/
+.out/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Database & session files
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.pid
+*.seed
+
+# Editor & OS-specific files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+Thumbs.db
+
+# Docker & deployment
+docker-compose.override.yml
+docker-compose.dev.yml
+docker-compose.prod.yml
+.Dockerfile.swp
