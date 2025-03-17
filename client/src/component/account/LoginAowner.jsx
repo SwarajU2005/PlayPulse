@@ -3,13 +3,13 @@ import { styled } from "@mui/material/styles";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider";
-import { API } from "../../service/api";
+import { OWNERAPI } from "../../service/ownerapi";
 import LogoImg from "../images/LogoImg.jpg";
 
 const initialLoginValues = { email: "", password: "" };
 const initialSignupValues = { name: "", email: "", password: "", confirmPassword: "" };
 
-const Login = ({ onClose }) => {
+const LoginAowner = ({ onClose }) => {
   const [account, setAccountType] = useState("login");
   const [loginData, setLoginData] = useState(initialLoginValues);
   const [signupData, setSignupData] = useState(initialSignupValues);
@@ -54,7 +54,7 @@ const Login = ({ onClose }) => {
     if (!validateSignup()) return;
     setLoading(true);
     try {
-      const response = await API.userSignup(signupData);
+      const response = await OWNERAPI.ownerSignup(signupData);
       if (response.isSuccess) {
         setError("");
         setSignupData(initialSignupValues);
@@ -72,11 +72,11 @@ const Login = ({ onClose }) => {
     if (!validateLogin()) return;
     setLoading(true);
     try {
-      const response = await API.userLogin(loginData);
+      const response = await OWNERAPI.ownerLogin(loginData);
       if (response.isSuccess) {
         sessionStorage.setItem("accessToken", `bearer ${response.data.accessToken}`);
         sessionStorage.setItem("refreshToken", `bearer ${response.data.refreshToken}`);
-        setAccount({ username: response.data.username, name: response.data.name });
+        setAccount({ username: response.data.username, name: response.data.name});
         navigate("/");
       } else {
         setError(response.error || "Login failed. Please check your credentials.");
@@ -95,7 +95,7 @@ const Login = ({ onClose }) => {
         </Box>
 
         <Box display="flex" flexDirection="column" gap={2}>
-          <Typography variant="h5">{account === "login" ? "Login" : "Signup"}</Typography>
+          <Typography variant="h5">{account === "login" ? "Owner Login" : "Owner Signup"}</Typography>
           {error && <Typography color="error">{error}</Typography>}
 
           {account === "login" ? (
@@ -118,13 +118,7 @@ const Login = ({ onClose }) => {
           <Button onClick={toggleAccount}>{account === "login" ? "Sign Up" : "Already have an account?"}</Button>
         </Box>
 
-        {/* Close Button */}
-        <Button 
-          onClick={onClose} 
-          sx={{ marginTop: 2, color: "gray", textTransform: "none" }}
-        >
-          Close
-        </Button>
+        <Button onClick={onClose} sx={{ marginTop: 2, color: "gray", textTransform: "none" }}>Close</Button>
       </InnerBox>
     </Overlay>
   );
@@ -140,9 +134,9 @@ const Overlay = styled(Box)({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent overlay
-  backdropFilter: "blur(5px)", // Blur effect
-  zIndex: 1000, // Ensure it's on top
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  backdropFilter: "blur(5px)",
+  zIndex: 1000,
 });
 
 const InnerBox = styled(Box)({
@@ -160,4 +154,4 @@ const LoginButton = styled(Button)({ background: "#007bff", color: "white", padd
 
 const SignupButton = styled(Button)({ background: "#28a745", color: "white", padding: "10px 20px" });
 
-export default Login;
+export default LoginAowner;

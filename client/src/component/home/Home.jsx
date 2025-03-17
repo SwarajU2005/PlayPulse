@@ -1,147 +1,82 @@
-import React from 'react';
-import { Calendar, MapPin, Clock, Star, Search } from 'lucide-react';
+import React, { useState } from "react";
+import { Calendar, Search } from "lucide-react";
+import Login from "../account/Login";
+import LoginAowner from "../account/LoginAowner";
 
-function App() {
+function Home() {
+  const [showLogin, setShowLogin] = useState(false);
+  const [showAlogin, setShowAlogin] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <Calendar className="w-8 h-8 text-blue-600" />
-              <span className="text-2xl font-bold text-gray-900">ArenaBook</span>
-            </div>
-            <div className="flex space-x-4">
-              <button className="text-gray-600 hover:text-gray-900">Sign In</button>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                Sign Up
-              </button>
-            </div>
+      <header className="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+          {/* Logo */}
+          <div className="flex items-center space-x-3 cursor-pointer">
+            <Calendar className="w-8 h-8 text-blue-600 hover:text-blue-700 transition-colors" />
+            <span className="text-2xl font-extrabold text-gray-900 hover:text-blue-600 transition-colors">
+              PulsePlay
+            </span>
+          </div>
+          
+          {/* Right Section */}
+          <div className="flex items-center space-x-4">
+            {/* Arena Owner Button */}
+            <button 
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+              onClick={() => setShowAlogin(true)}
+            >
+              Arena Owner
+            </button>
+
+            {/* Profile Icon */}
+            <button onClick={() => setShowLogin(true)} className="focus:outline-none">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" // Updated icon URL
+                alt="Profile"
+                className="w-10 h-10 rounded-full hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+              />
+            </button>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <main>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
-              Book Your Perfect
-              <span className="text-blue-600"> Sports Arena</span>
-            </h1>
-            <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg md:mt-5 md:text-xl">
-              Find and book sports facilities in your area. Quick, easy, and secure.
-            </p>
+      <main className="max-w-7xl mx-auto px-6 pt-32 pb-12 text-center">
+        <h1 className="text-5xl font-extrabold text-gray-900 sm:text-6xl leading-tight">
+          Book Your Perfect{" "}
+          <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Sports Arena
+          </span>
+        </h1>
+        <p className="mt-4 text-lg text-gray-600 sm:text-xl max-w-2xl mx-auto">
+          Find and book sports facilities in your area. Quick, easy, and secure.
+        </p>
 
-            {/* Search Box */}
-            <div className="mt-8 flex justify-center">
-              <div className="max-w-xl w-full bg-white rounded-lg shadow-md p-4">
-                <div className="flex items-center space-x-4">
-                  <div className="flex-1 relative">
-                    <Search className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
-                    <input
-                      type="text"
-                      placeholder="Search for sports arenas..."
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                    Search
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Features */}
-          <div className="mt-20">
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <FeatureCard
-                icon={<MapPin className="w-6 h-6 text-blue-600" />}
-                title="Find Nearby Arenas"
-                description="Discover sports facilities in your area with real-time availability"
-              />
-              <FeatureCard
-                icon={<Clock className="w-6 h-6 text-blue-600" />}
-                title="Easy Booking"
-                description="Book your preferred time slot with just a few clicks"
-              />
-              <FeatureCard
-                icon={<Star className="w-6 h-6 text-blue-600" />}
-                title="Verified Venues"
-                description="All sports arenas are verified and reviewed by our community"
+        {/* Search Box */}
+        <div className="mt-8 flex justify-center">
+          <div className="max-w-2xl w-full bg-white rounded-xl shadow-lg p-4 flex items-center space-x-3 hover:shadow-xl transition-shadow duration-300">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search for sports arenas..."
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-          </div>
-
-          {/* Featured Arenas */}
-          <div className="mt-20">
-            <h2 className="text-3xl font-bold text-center mb-12">Featured Arenas</h2>
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <ArenaCard
-                image="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                title="Downtown Sports Complex"
-                sport="Basketball"
-                rating={4.8}
-                price="$40/hour"
-              />
-              <ArenaCard
-                image="https://images.unsplash.com/photo-1459865264687-595d652de67e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                title="Central Football Stadium"
-                sport="Football"
-                rating={4.6}
-                price="$80/hour"
-              />
-              <ArenaCard
-                image="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                title="Elite Tennis Club"
-                sport="Tennis"
-                rating={4.9}
-                price="$30/hour"
-              />
-            </div>
+            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+              Search
+            </button>
           </div>
         </div>
       </main>
+
+      {/* Render Login Component Conditionally */}
+      {showLogin && <Login onClose={() => setShowLogin(false)} />}
+      {showAlogin && <LoginAowner onClose={() => setShowAlogin(false)} />}
     </div>
   );
 }
 
-function FeatureCard({ icon, title, description }) {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-      <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mb-4">
-        {icon}
-      </div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
-    </div>
-  );
-}
-
-function ArenaCard({ image, title, sport, rating, price }) {
-  return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      <img src={image} alt={title} className="w-full h-48 object-cover" />
-      <div className="p-4">
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-gray-600">{sport}</span>
-          <div className="flex items-center">
-            <Star className="w-4 h-4 text-yellow-400 mr-1" />
-            <span>{rating}</span>
-          </div>
-        </div>
-        <div className="flex justify-between items-center">
-          <span className="text-blue-600 font-semibold">{price}</span>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-            Book Now
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default App;
+export default Home;
